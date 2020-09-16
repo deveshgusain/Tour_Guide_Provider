@@ -1,3 +1,4 @@
+import { func } from "prop-types";
 import { put, take, select } from "redux-saga/effects";
 import { v4 as uuid } from "uuid";
 import { history } from "./history";
@@ -22,6 +23,9 @@ export function* requestGuideCheckingSaga() {
 
       const id = uuid();
       const user = "test";
+      const progress = "0";
+      let otp = Math.floor(100000 + Math.random() * 900000);
+      otp = otp.toString();
       let guideIds = [];
       for (const guide in selectedGuides) {
         if (selectedGuides[guide] === true) guideIds = [...guideIds, guide];
@@ -35,6 +39,8 @@ export function* requestGuideCheckingSaga() {
         amount,
         members,
         guideIds,
+        otp,
+        progress,
       };
       yield put(mutations.addBooking(NewBooking));
       console.log("Booking Completed ", NewBooking);
@@ -89,5 +95,50 @@ export function* requestAvailableGuideSaga() {
     } catch (error) {
       yield put(mutations.addAvailableGuides(availableGuide));
     }
+  }
+}
+
+export function* checkOTPSaga() {
+  while (true) {
+    const { otp, bookId, book } = yield take(mutations.CHECK_OTP); //book from server
+    if (book.otp === otp) {
+      const progress = "1";
+      yield put(mutations.updateBookProgress(bookId, progress));
+    } else {
+      alert("Wrong OTP! Try again...");
+    }
+  }
+}
+
+export function* requestCompleteVisitSaga() {
+  while (true) {
+    const { bookId, book } = yield take(mutations.REQUEST_COMPLETE_VISIT);
+    // add in visits
+    yield put(mutations.addVisits(book));
+    // add rating
+    for (let guide in book.guideIds) {
+      yield put(mutations.requestAddRating(bookId, book.guideIds[guide]));
+    }
+    // delete from bookings
+    yield put(mutations.deleteBooking(bookId));
+    history.push("/guide/complete");
+  }
+}
+
+export function* addRatingSaga() {
+  while (true) {
+    const { visitId, guideId } = yield take(mutations.REQUEST_ADD_RATING);
+    const score = 2;
+    const id = uuid();
+    const isSubmit = false;
+    const Newrating = {
+      id,
+      visitId,
+      guideId,
+      score,
+      isSubmit,
+    };
+    yield put(mutations.addRating(Newrating));
+    console.info("Rating added.. ", Newrating);
   }
 }

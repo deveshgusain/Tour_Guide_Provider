@@ -13,6 +13,18 @@ export const REQUEST_AVAILABLE_GUIDES = "REQUEST_AVAILABLE_GUIDES";
 export const ADD_AVAILABLE_GUIDES = "ADD_AVAILABLE_GUIDES";
 export const RESET_AVAILABLE_GUIDES = "RESET_AVAILABLE_GUIDES";
 export const CHANGE_DOBOOKING = "CHANGE_DOBOOKING";
+export const CHECK_OTP = "CHECK_OTP";
+export const PROCESS_OTP = "PROCESS_OTP";
+export const WRONG_OTP = "WRONG_OTP";
+export const CHECKING_OTP = "CHECKING_OTP";
+export const UPDATE_BOOK_PROGRESS = "UPDATE_BOOK_PROGRESS";
+export const REQUEST_COMPLETE_VISIT = "REQUEST_COMPLETE_VISIT";
+export const ADD_VISITS = "ADD_VISITS";
+export const DELETE_BOOKING = "DELETE_BOOKING";
+export const REQUEST_ADD_RATING = "REQUEST_ADD_RATING";
+export const ADD_RATING = "ADD_RATING";
+export const CHANGE_RATING = "CHANGE_RATING";
+export const SUBMIT_RATING = "SUBMIT_RATING";
 
 export const checkGuides = (selectedGuides, members, placeId, date) => ({
   type: REQUEST_GUIDE_CHECKING,
@@ -46,23 +58,9 @@ export const processBooking = (status) => ({
   status,
 });
 
-export const addBooking = ({
-  id,
-  user,
-  placeId,
-  date,
-  amount,
-  members,
-  guideIds,
-}) => ({
+export const addBooking = (book) => ({
   type: ADD_BOOKING,
-  id,
-  user,
-  placeId,
-  date,
-  amount,
-  members,
-  guideIds,
+  book,
 });
 
 export const availableGuide = (date, guides, booked) => ({
@@ -84,4 +82,59 @@ export const resetAvailableGuides = () => ({
 export const changeDObooking = (date) => ({
   type: CHANGE_DOBOOKING,
   date,
+});
+
+export const checkOTP = (otp, bookId, book) => ({
+  type: CHECK_OTP,
+  otp,
+  bookId,
+  book,
+});
+
+export const updateBookProgress = (bookId, progress) => ({
+  type: UPDATE_BOOK_PROGRESS,
+  bookId,
+  progress,
+});
+
+export const requestCompleteVisit = (bookId, book) => ({
+  type: REQUEST_COMPLETE_VISIT,
+  bookId,
+  book,
+});
+
+export const addVisits = (visit) => ({
+  type: ADD_VISITS,
+  visit,
+});
+
+export const deleteBooking = (bookId) => ({
+  type: DELETE_BOOKING,
+  bookId,
+});
+
+export const requestAddRating = (visitId, guideId) => ({
+  type: REQUEST_ADD_RATING,
+  visitId,
+  guideId,
+});
+
+export const addRating = ({ id, visitId, guideId, score, isSubmit }) => ({
+  type: ADD_RATING,
+  id,
+  visitId,
+  guideId,
+  score,
+  isSubmit,
+});
+
+export const changeRating = (id, rating) => ({
+  type: CHANGE_RATING,
+  id,
+  rating,
+});
+
+export const submitRating = (id) => ({
+  type: SUBMIT_RATING,
+  id,
 });

@@ -22,8 +22,9 @@ const Visits = ({ visits, places }) => (
             <ConnectedGuide
               key={guide}
               guideId={guide}
-              isPhone={true}
+              isBook={false}
               className="col"
+              visitId={visit.id}
             />
           ))}
         </div>

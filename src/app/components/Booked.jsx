@@ -22,11 +22,12 @@ const Booked = ({ booked, places }) => (
             <ConnectedGuide
               key={guide}
               guideId={guide}
-              isPhone={true}
+              isBook={true}
               className="col"
             />
           ))}
         </div>
+        <h6>OTP: {visit.otp}</h6>
       </div>
     ))}
   </div>

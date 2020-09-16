@@ -104,6 +104,8 @@ export const defaultState = {
       amount: "2000",
       members: 5,
       guideIds: ["guide3"],
+      otp: "123456",
+      progress: "0",
     },
     {
       id: "b2",
@@ -113,6 +115,8 @@ export const defaultState = {
       amount: "3000",
       members: 14,
       guideIds: ["guide1", "guide2"],
+      otp: "000000",
+      progress: "0",
     },
     {
       id: "b3",
@@ -122,6 +126,8 @@ export const defaultState = {
       amount: "1500",
       members: 8,
       guideIds: ["guide1"],
+      otp: "123123",
+      progress: "0",
     },
   ],
   guides: [
@@ -150,23 +156,6 @@ export const defaultState = {
       location: "https://www.google.co.in/maps/@30.3445675,77.9967391,15.41z",
     },
   ],
-  feedbacks: [
-    {
-      tour: "v1",
-      guide: "p1",
-      rating: 7,
-    },
-    {
-      tour: "v1",
-      guide: "p2",
-      rating: 9,
-    },
-    {
-      tour: "v2",
-      guide: "p3",
-      rating: 10,
-    },
-  ],
   languages: {
     hindi: "Hindi",
     english: "English",
@@ -182,4 +171,27 @@ export const defaultState = {
       stateId: "uttarakhand",
     },
   },
+  ratings: [
+    {
+      id: "r1",
+      visitId: "v1",
+      guideId: "guide1",
+      score: "4",
+      isSubmit: true,
+    },
+    {
+      id: "r2",
+      visitId: "v1",
+      guideId: "guide2",
+      score: "2",
+      isSubmit: false,
+    },
+    {
+      id: "r3",
+      visitId: "v2",
+      guideId: "guide3",
+      score: "2",
+      isSubmit: false,
+    },
+  ],
 };

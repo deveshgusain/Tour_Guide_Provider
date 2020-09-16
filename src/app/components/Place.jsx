@@ -60,7 +60,7 @@ const Place = ({
               key={guide}
               guideId={guide}
               handleCheckbox={handleCheckbox}
-              isPhone={false}
+              isBook={false}
               className="col"
             />
           ))}

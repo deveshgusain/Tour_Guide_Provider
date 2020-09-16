@@ -17,6 +17,14 @@ const Navigation = () => {
       <NavLink to="/booked" activeStyle={activeStyle} exact>
         Booked Trips
       </NavLink>
+      {"  |  "}
+      <NavLink to="/guide/booking" activeStyle={activeStyle} exact>
+        Guide Bookings
+      </NavLink>
+      {"  |  "}
+      <NavLink to="/guide/complete" activeStyle={activeStyle} exact>
+        Guide complete Bookings
+      </NavLink>
     </nav>
   );
 };

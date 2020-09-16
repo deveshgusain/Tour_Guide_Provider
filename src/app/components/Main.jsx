@@ -10,6 +10,8 @@ import { ConnectedNavigation } from "./Navigation";
 import { ConnectedVisits } from "./Visits";
 import { ConnectedBooked } from "./Booked";
 import { ConnectedPaymentGateway } from "./PaymentGateway";
+import { ConnectedGuideBooking } from "./GuideBooking";
+import { ConnectedGuideCompleteBookings } from "./GuideCompleteBookings";
 
 export const Main = () => (
   <Router history={history}>
@@ -21,6 +23,12 @@ export const Main = () => (
         <Route exact path="/visits" component={ConnectedVisits} />
         <Route exact path="/booked" component={ConnectedBooked} />
         <Route exact path="/payment" component={ConnectedPaymentGateway} />
+        <Route exact path="/guide/booking" component={ConnectedGuideBooking} />
+        <Route
+          exact
+          path="/guide/complete"
+          component={ConnectedGuideCompleteBookings}
+        />
       </div>
     </Provider>
   </Router>
