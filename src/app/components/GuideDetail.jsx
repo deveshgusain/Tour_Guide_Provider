@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { ConnectedRating } from "./Rating";
-import * as mutations from "../store/mutations";
 
 const Guide = ({
   guide,
@@ -12,7 +11,6 @@ const Guide = ({
   isBook,
   visitId,
   rating,
-  handleSubmitRating,
 }) => (
   <div className="card p-2 m-2">
     <h6>Name: {guide.name}</h6>
@@ -54,7 +52,6 @@ const mapStateToProps = (state, ownProps) => {
   const user = state.users.find((user) => user.username === guideId);
   const handleCheckbox = ownProps.handleCheckbox;
   guide = { ...guide, ...user };
-
   //Ratings
   let rating = {};
   if (visitId !== undefined) {
@@ -62,7 +59,6 @@ const mapStateToProps = (state, ownProps) => {
       (rating) => rating.visitId === visitId && rating.guideId === guideId
     );
   }
-
   return {
     guide,
     languages: state.languages,
@@ -73,14 +69,6 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    handleSubmitRating(rating, visitId, guideId) {
-      dispatch(mutations.requestAddRating(visitId, guideId, rating));
-    },
-  };
-};
-
 Guide.propTypes = {
   guide: PropTypes.object.isRequired,
   languages: PropTypes.object.isRequired,
@@ -88,10 +76,7 @@ Guide.propTypes = {
   isBook: PropTypes.bool.isRequired,
   visitId: PropTypes.string,
   rating: PropTypes.object,
-  handleSubmitRating: PropTypes.func.isRequired,
+  handleSubmitRating: PropTypes.func,
 };
 
-export const ConnectedGuide = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Guide);
+export const ConnectedGuide = connect(mapStateToProps)(Guide);

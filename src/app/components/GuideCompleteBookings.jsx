@@ -18,8 +18,9 @@ const GuideCompleteBookings = ({ visits, places, ratings }) => (
 
         {ratings[visit.id].isSubmit !== false ? (
           <div>
-            <h6>Rating : </h6>
-            <p>{ratings[visit.id].score}</p>
+            <p>
+              <b>Rating : {ratings[visit.id].score}</b>
+            </p>
           </div>
         ) : (
           <p>Waiting for rating</p>
@@ -30,9 +31,10 @@ const GuideCompleteBookings = ({ visits, places, ratings }) => (
 );
 
 const mapStateToProps = (state) => {
-  const visits = state.visits;
+  const visits = state.guideVisits;
   const places = {};
   const ratings = {};
+  const userId = state.user.username;
   for (let visit in visits) {
     const place = state.places.find(
       (place) => place.id === visits[visit].placeId
@@ -40,7 +42,8 @@ const mapStateToProps = (state) => {
     places[visits[visit].placeId] = place;
 
     const rating = state.ratings.find(
-      (rating) => rating.visitId === visits[visit].id
+      (rating) =>
+        rating.visitId === visits[visit].id && rating.guideId === userId
     );
     ratings[visits[visit].id] = rating;
   }

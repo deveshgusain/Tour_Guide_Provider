@@ -156,21 +156,6 @@ export const defaultState = {
       location: "https://www.google.co.in/maps/@30.3445675,77.9967391,15.41z",
     },
   ],
-  languages: {
-    hindi: "Hindi",
-    english: "English",
-  },
-  state: { uttarakhand: "Uttarakhand" },
-  city: {
-    dehradun: {
-      name: "Dehradun",
-      stateId: "uttarakhand",
-    },
-    haridwar: {
-      name: "Haridwar",
-      stateId: "uttarakhand",
-    },
-  },
   ratings: [
     {
       id: "r1",
@@ -192,6 +177,34 @@ export const defaultState = {
       guideId: "guide3",
       score: "2",
       isSubmit: false,
+    },
+  ],
+  languages: [
+    {
+      id: "hindi",
+      name: "Hindi",
+    },
+    {
+      id: "english",
+      name: "English",
+    },
+  ],
+  state: [
+    {
+      id: "uttarakhand",
+      name: "Uttarakhand",
+    },
+  ],
+  city: [
+    {
+      id: "dehradun",
+      name: "Dehradun",
+      stateId: "uttarakhand",
+    },
+    {
+      id: "haridwar",
+      name: "Haridwar",
+      stateId: "uttarakhand",
     },
   ],
 };

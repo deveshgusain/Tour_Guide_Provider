@@ -8,13 +8,15 @@
     "dev": "webpack-dev-server --open",
     "initialize": "babel-node src/server/initialize-db",
     "server": "babel-node src/server/server",
-    "start-dev": "concurrently \"npm run server\" \"npm run dev\" "
+    "start-dev": "concurrently \"npm run server\" \"npm run dev\" ",
+    "checkdb": "babel-node src/server/connect-db"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "axios": "^0.20.0",
     "babel-eslint": "^10.1.0",
@@ -26,6 +28,7 @@
     "history": "^4.7.2",
     "md5": "^2.3.0",
     "mongodb": "^3.6.1",
+    "mongoose": "^5.10.5",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

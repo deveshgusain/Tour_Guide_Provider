@@ -33,7 +33,7 @@ const GuideBooking = ({ booked, places, handleOtp, handleComplete }) => (
 );
 
 const mapStateToProps = (state) => {
-  const booked = state.booked;
+  const booked = state.guideBooked;
   const places = {};
   for (let visit in booked) {
     const place = state.places.find(

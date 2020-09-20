@@ -9,10 +9,11 @@ const HoverRating = ({ handleSubmitRating, handleChangeRating, rating }) => (
   <form
     onSubmit={(e) => {
       e.preventDefault();
-      handleSubmitRating(e);
+      handleSubmitRating(rating.score);
     }}
   >
     <Rating
+      id={rating.id}
       name={`rating${rating.id}`}
       value={Number(rating.score)}
       precision={1}
@@ -35,8 +36,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const score = e.target.value;
       dispatch(mutations.changeRating(ratingId, score));
     },
-    handleSubmitRating(e) {
-      dispatch(mutations.submitRating(ratingId));
+    handleSubmitRating(score) {
+      dispatch(mutations.submitRating(ratingId, score));
     },
   };
 };

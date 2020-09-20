@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { createLogger } from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 
-import { defaultState } from "../../server/defaultState";
+// import { defaultState } from "../../server/defaultState";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -11,27 +11,29 @@ import * as mutations from "./mutations";
 
 export const store = createStore(
   combineReducers({
-    visits(visits = defaultState.visits, action) {
+    session(userSession = {}, action) {
+      let { type, status } = action;
+      switch (type) {
+        case mutations.REQUEST_AUTHENTICATE_USER:
+          return { ...userSession, status: mutations.AUTHENTICATING };
+        case mutations.PROCESSING_AUTHENTICATE_USER:
+          return { ...userSession, status };
+        default:
+          return userSession;
+      }
+    },
+    visits(visits = [], action) {
       switch (action.type) {
-        case mutations.ADD_VISITS:
-          return [
-            ...visits,
-            {
-              id: action.visit.id,
-              user: action.visit.user,
-              placeId: action.visit.placeId,
-              date: action.visit.date,
-              amount: action.visit.amount,
-              members: action.visit.members,
-              guideIds: action.visit.guideIds,
-            },
-          ];
+        case mutations.SET_USER_STATE:
+          return action.state.visits;
         default:
           return visits;
       }
     },
-    booked(booked = defaultState.booked, action) {
+    booked(booked = [], action) {
       switch (action.type) {
+        case mutations.SET_USER_STATE:
+          return action.state.booked;
         case mutations.ADD_BOOKING:
           return [
             ...booked,
@@ -47,26 +49,30 @@ export const store = createStore(
               progress: action.book.progress,
             },
           ];
-        case mutations.UPDATE_BOOK_PROGRESS:
-          return booked.map((book) => {
-            return book.id === action.bookId
-              ? { ...book, progress: action.progress }
-              : book;
-          });
-        case mutations.DELETE_BOOKING:
-          return booked.filter((book) => book.id !== action.bookId);
         default:
           return booked;
       }
     },
-    guides(guides = defaultState.guides) {
-      return guides;
-    },
-    places(places = defaultState.places) {
-      return places;
-    },
-    ratings(ratings = defaultState.ratings, action) {
+    guides(guides = [], action) {
       switch (action.type) {
+        case mutations.SET_INITIAL_STATE:
+          return action.state.guides;
+        default:
+          return guides;
+      }
+    },
+    places(places = [], action) {
+      switch (action.type) {
+        case mutations.SET_INITIAL_STATE:
+          return action.state.places;
+        default:
+          return places;
+      }
+    },
+    ratings(ratings = [], action) {
+      switch (action.type) {
+        case mutations.SET_INITIAL_STATE:
+          return action.state.ratings;
         case mutations.ADD_RATING:
           return [
             ...ratings,
@@ -74,7 +80,7 @@ export const store = createStore(
               id: action.id,
               visitId: action.visitId,
               guideId: action.guideId,
-              score: action.rating,
+              score: action.score,
               isSubmit: action.isSubmit,
             },
           ];
@@ -86,7 +92,7 @@ export const store = createStore(
           });
         case mutations.SUBMIT_RATING:
           return ratings.map((rating) => {
-            return rating.id === action.id
+            return rating.id === action.ratingId
               ? { ...rating, isSubmit: true }
               : rating;
           });
@@ -94,17 +100,45 @@ export const store = createStore(
           return ratings;
       }
     },
-    languages(languages = defaultState.languages) {
-      return languages;
+    languages(languages = {}, action) {
+      switch (action.type) {
+        case mutations.SET_INITIAL_STATE:
+          return action.state.languages;
+        default:
+          return languages;
+      }
     },
-    state(state = defaultState.state) {
-      return state;
+    state(state = {}, action) {
+      switch (action.type) {
+        case mutations.SET_INITIAL_STATE:
+          return action.state.state;
+        default:
+          return state;
+      }
     },
-    city(city = defaultState.city) {
-      return city;
+    city(city = {}, action) {
+      switch (action.type) {
+        case mutations.SET_INITIAL_STATE:
+          return action.state.city;
+        default:
+          return city;
+      }
     },
-    users(user = defaultState.users) {
-      return user;
+    users(users = [], action) {
+      switch (action.type) {
+        case mutations.SET_INITIAL_STATE:
+          return action.state.users;
+        default:
+          return users;
+      }
+    },
+    user(user = {}, action) {
+      switch (action.type) {
+        case mutations.SET_USER_STATE:
+          return action.state.user;
+        default:
+          return user;
+      }
     },
     guideCheck(guideCheck = {}, action) {
       let { type, status } = action;
@@ -136,6 +170,43 @@ export const store = createStore(
           return action.date;
         default:
           return DObooking;
+      }
+    },
+    guideVisits(guideVisits = [], action) {
+      switch (action.type) {
+        case mutations.SET_USER_STATE:
+          return action.state.guideVisits;
+        case mutations.ADD_VISITS:
+          return [
+            ...guideVisits,
+            {
+              id: action.visit.id,
+              user: action.visit.user,
+              placeId: action.visit.placeId,
+              date: action.visit.date,
+              amount: action.visit.amount,
+              members: action.visit.members,
+              guideIds: action.visit.guideIds,
+            },
+          ];
+        default:
+          return guideVisits;
+      }
+    },
+    guideBooked(guideBooked = [], action) {
+      switch (action.type) {
+        case mutations.SET_USER_STATE:
+          return action.state.guideBooked;
+        case mutations.UPDATE_BOOK_PROGRESS:
+          return guideBooked.map((book) => {
+            return book.id === action.bookId
+              ? { ...book, progress: action.progress }
+              : book;
+          });
+        case mutations.DELETE_BOOKING:
+          return guideBooked.filter((book) => book.id !== action.bookId);
+        default:
+          return guideBooked;
       }
     },
   }),

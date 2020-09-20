@@ -47,7 +47,6 @@ const mapStateToProps = (state) => {
     places,
   };
 };
-
 Visits.propTypes = {
   visits: PropTypes.array.isRequired,
   places: PropTypes.object.isRequired,

@@ -21,17 +21,30 @@ export const UPDATE_BOOK_PROGRESS = "UPDATE_BOOK_PROGRESS";
 export const REQUEST_COMPLETE_VISIT = "REQUEST_COMPLETE_VISIT";
 export const ADD_VISITS = "ADD_VISITS";
 export const DELETE_BOOKING = "DELETE_BOOKING";
+//Rating
 export const REQUEST_ADD_RATING = "REQUEST_ADD_RATING";
 export const ADD_RATING = "ADD_RATING";
 export const CHANGE_RATING = "CHANGE_RATING";
 export const SUBMIT_RATING = "SUBMIT_RATING";
+//SignIn
+export const AUTHENTICATING = "AUTHENTICATING";
+export const AUTHENTICATED = "AUTHENTICATED";
+export const NOT_AUTHENTICATED = "NOT_AUTHENTICATED";
+export const REQUEST_AUTHENTICATE_USER = "REQUEST_AUTHENTICATE_USER";
+export const PROCESSING_AUTHENTICATE_USER = "PROCESS_AUTHENTICATE_USER";
+//Initial State
+export const REQUEST_INITIAL_STATE = "REQUEST_INITIAL_STATE";
+export const SET_INITIAL_STATE = "SET_INITIAL_STATE";
+export const SET_USER_STATE = "SET_USER_STATE";
 
-export const checkGuides = (selectedGuides, members, placeId, date) => ({
+export const checkGuides = (guideIds, members, placeId, date, price, user) => ({
   type: REQUEST_GUIDE_CHECKING,
-  selectedGuides,
+  guideIds,
   members,
   placeId,
   date,
+  price,
+  user,
 });
 
 export const processingGuideChecking = (
@@ -63,11 +76,10 @@ export const addBooking = (book) => ({
   book,
 });
 
-export const availableGuide = (date, guides, booked) => ({
+export const availableGuide = (date, placeId) => ({
   type: REQUEST_AVAILABLE_GUIDES,
   date,
-  guides,
-  booked,
+  placeId,
 });
 
 export const addAvailableGuides = (availableGuides = []) => ({
@@ -134,7 +146,33 @@ export const changeRating = (id, rating) => ({
   rating,
 });
 
-export const submitRating = (id) => ({
+export const submitRating = (ratingId, score) => ({
   type: SUBMIT_RATING,
-  id,
+  ratingId,
+  score,
+});
+
+export const requestAuthenticateUser = (username, password) => ({
+  type: REQUEST_AUTHENTICATE_USER,
+  username,
+  password,
+});
+
+export const processAuthenticateUser = (status) => ({
+  type: PROCESSING_AUTHENTICATE_USER,
+  status,
+});
+
+export const requestInitialState = () => ({
+  type: REQUEST_INITIAL_STATE,
+});
+
+export const setInitialState = (state = {}) => ({
+  type: SET_INITIAL_STATE,
+  state,
+});
+
+export const setUserState = (state = {}) => ({
+  type: SET_USER_STATE,
+  state,
 });

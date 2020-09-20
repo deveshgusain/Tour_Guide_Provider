@@ -10,6 +10,10 @@ const Navigation = () => {
         Home
       </NavLink>
       {"  |  "}
+      <NavLink to="/signin" activeStyle={activeStyle} exact>
+        SignIn
+      </NavLink>
+      {"  |  "}
       <NavLink to="/visits" activeStyle={activeStyle} exact>
         Visits
       </NavLink>
