@@ -9,6 +9,7 @@ import Rating from "./models/ratingModel";
 import Language from "./models/languageModel";
 import State from "./models/stateModel";
 import City from "./models/cityModel";
+import Image from "./models/imageModel";
 
 async function initializeDB() {
   const Preuser = await User.findOne({ username: "test" });
@@ -48,6 +49,10 @@ async function initializeDB() {
     for (const city in defaultState.city) {
       const newCity = new City(defaultState.city[city]);
       await newCity.save();
+    }
+    for (const image in defaultState.images) {
+      const newImage = new Image(defaultState.images[image]);
+      await newImage.save();
     }
   }
 }

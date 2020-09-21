@@ -43,6 +43,32 @@ export const defaultState = {
       role: "guide",
     },
   ],
+  guides: [
+    {
+      id: "guide1",
+      languageIds: ["hindi", "english"],
+      placeId: "p1",
+      location: "https://www.google.co.in/maps/@30.1837897,78.1450406,15z",
+    },
+    {
+      id: "guide2",
+      languageIds: ["hindi", "english"],
+      placeId: "p1",
+      location: "https://www.google.co.in/maps/@30.1942024,78.135535,15.13z",
+    },
+    {
+      id: "guide3",
+      languageIds: ["hindi"],
+      placeId: "p3",
+      location: "https://www.google.co.in/maps/@30.3445675,77.9967391,15.41z",
+    },
+    {
+      id: "guide2",
+      languageIds: ["english"],
+      placeId: "p2",
+      location: "https://www.google.co.in/maps/@30.3445675,77.9967391,15.41z",
+    },
+  ],
   places: [
     {
       id: "p1",
@@ -130,32 +156,6 @@ export const defaultState = {
       progress: "0",
     },
   ],
-  guides: [
-    {
-      id: "guide1",
-      languageIds: ["hindi", "english"],
-      placeId: "p1",
-      location: "https://www.google.co.in/maps/@30.1837897,78.1450406,15z",
-    },
-    {
-      id: "guide2",
-      languageIds: ["hindi", "english"],
-      placeId: "p1",
-      location: "https://www.google.co.in/maps/@30.1942024,78.135535,15.13z",
-    },
-    {
-      id: "guide3",
-      languageIds: ["hindi"],
-      placeId: "p3",
-      location: "https://www.google.co.in/maps/@30.3445675,77.9967391,15.41z",
-    },
-    {
-      id: "guide2",
-      languageIds: ["english"],
-      placeId: "p2",
-      location: "https://www.google.co.in/maps/@30.3445675,77.9967391,15.41z",
-    },
-  ],
   ratings: [
     {
       id: "r1",
@@ -205,6 +205,35 @@ export const defaultState = {
       id: "haridwar",
       name: "Haridwar",
       stateId: "uttarakhand",
+    },
+  ],
+  images: [
+    {
+      placeId: "p1",
+      header:
+        "https://www.holidify.com/images/cmsuploads/compressed/Sahastradhara-Dehradun-925752519-4250723-1_20171121221603.jpg",
+      all: [
+        "https://i.pinimg.com/originals/1e/6c/a1/1e6ca193dbe9a55f5064c96995d3cad4.png",
+        "https://media-cdn.tripadvisor.com/media/photo-w/17/61/df/b9/views.jpg",
+      ],
+    },
+    {
+      placeId: "p2",
+      header:
+        "https://media-cdn.tripadvisor.com/media/photo-w/02/f5/01/46/robber-s-cave.jpg",
+      all: [
+        "https://media-cdn.tripadvisor.com/media/photo-o/03/64/08/48/robber-s-cave.jpg",
+        "https://media-cdn.tripadvisor.com/media/photo-p/1a/2d/77/de/robber-s-cave-gucchu.jpg",
+      ],
+    },
+    {
+      placeId: "p3",
+      header:
+        "https://media-cdn.tripadvisor.com/media/photo-w/0a/bb/05/83/budh-poornima-holy-bath.jpg",
+      all: [
+        "https://i.pinimg.com/originals/1e/6c/a1/1e6ca193dbe9a55f5064c96995d3cad4.png",
+        "https://media-cdn.tripadvisor.com/media/photo-w/17/61/df/b9/views.jpg",
+      ],
     },
   ],
 };

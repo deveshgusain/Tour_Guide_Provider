@@ -13,15 +13,15 @@ export function* requestGuideCheckingSaga() {
       mutations.REQUEST_GUIDE_CHECKING
     );
     try {
+      if (Object.keys(user).length === 0) {
+        throw new Error();
+      }
       let selected = guideIds.length;
       if (selected * 10 < members) {
         throw new Error();
       }
       yield put(mutations.processingGuideChecking(mutations.ENOUGH_GUIDES));
-      if (Object.keys(user).length === 0) {
-        history.push("/signin");
-        return;
-      }
+
       const id = uuid();
       user = user.username;
       const progress = "0";
@@ -51,10 +51,14 @@ export function* requestGuideCheckingSaga() {
 
       history.push("/booked");
     } catch (error) {
-      console.log("Not Enough Guides");
-      yield put(
-        mutations.processingGuideChecking(mutations.REQUIRED_MORE_GUIDE)
-      );
+      if (Object.keys(user).length === 0) {
+        history.push("/signin");
+      } else {
+        console.log("Not Enough Guides");
+        yield put(
+          mutations.processingGuideChecking(mutations.REQUIRED_MORE_GUIDE)
+        );
+      }
     }
   }
 }
@@ -176,13 +180,11 @@ export function* submitRatingSaga() {
 
 export function* authenticateUserSaga() {
   while (true) {
-    const { username, password } = yield take(
-      mutations.REQUEST_AUTHENTICATE_USER
-    );
+    const { email, password } = yield take(mutations.REQUEST_AUTHENTICATE_USER);
     try {
       // backend check
       const { data } = yield axios.post(url + `/signin`, {
-        username,
+        email,
         password,
       });
       if (!data) {
@@ -205,5 +207,31 @@ export function* addInitialStateSaga() {
     const { data } = yield axios.post(url + `/`, {});
     console.info("Inital state ", data);
     yield put(mutations.setInitialState(data));
+  }
+}
+
+export function* createUserSaga() {
+  while (true) {
+    const { name, email, password, phoneNo } = yield take(
+      mutations.CREATE_USER
+    );
+    try {
+      const username = email.split("@")[0];
+      const role = "user";
+      const { data } = yield axios.post(url + `/user/new`, {
+        name,
+        username,
+        password,
+        email,
+        phoneNo,
+        role,
+      });
+      console.log("Created ", data);
+      yield put(mutations.setUserState(data.state));
+      yield put(mutations.processAuthenticateUser(mutations.AUTHENTICATED));
+      history.push("/");
+    } catch (e) {
+      yield put(mutations.processAuthenticateUser(mutations.USERNAME_RESERVED));
+    }
   }
 }

@@ -53,10 +53,10 @@ const SignIn = ({ authenticateUser, status }) => {
             margin="normal"
             required
             fullWidth
-            id="username"
-            label="username"
-            name="username"
-            autoComplete="email"
+            type="email"
+            id="email"
+            label="email"
+            name="email"
             autoFocus
           />
           <TextField
@@ -86,9 +86,9 @@ const SignIn = ({ authenticateUser, status }) => {
           >
             Sign In
           </Button>
-          <Grid container>
+          <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
@@ -107,9 +107,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     authenticateUser(e) {
       e.preventDefault();
-      const username = e.target["username"].value;
+      const email = e.target["email"].value;
       const password = e.target["password"].value;
-      dispatch(mutations.requestAuthenticateUser(username, password));
+      dispatch(mutations.requestAuthenticateUser(email, password));
     },
   };
 };

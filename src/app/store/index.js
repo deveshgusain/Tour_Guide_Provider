@@ -69,6 +69,14 @@ export const store = createStore(
           return places;
       }
     },
+    images(images = {}, action) {
+      switch (action.type) {
+        case mutations.SET_INITIAL_STATE:
+          return action.state.images;
+        default:
+          return images;
+      }
+    },
     ratings(ratings = [], action) {
       switch (action.type) {
         case mutations.SET_INITIAL_STATE:

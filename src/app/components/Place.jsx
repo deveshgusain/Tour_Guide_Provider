@@ -3,7 +3,31 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import * as mutations from "../store/mutations";
 
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+
 import { ConnectedGuide } from "./GuideDetail";
+
+const useStyles = makeStyles((theme) => ({
+  cardGrid: {
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+  },
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  cardMedia: {
+    paddingTop: "100%", // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+}));
 
 const Place = ({
   user,
@@ -14,79 +38,110 @@ const Place = ({
   handleBooking,
   handleDate,
   status,
+  images,
   date,
   availableGuides,
   DObooking,
-}) => (
-  <div>
-    {place === undefined ? null : (
-      <div>
-        <hr />
-        <h2>{place.name}</h2>
-        <p>
-          <b>State:</b> {states[city.stateId]}
-        </p>
-        <p>
-          <b>City:</b> {city[place.cityId].name}
-        </p>
-        <a href={place.location}>direction</a>
-        <hr />
-
-        <h4>Overview: </h4>
-        <p>{place.description}</p>
-
-        <hr />
+}) => {
+  const classes = useStyles();
+  return (
+    <div>
+      {place === undefined ? null : (
         <div>
-          <h5>Amount of one Guide: {place.price}</h5>
-        </div>
-        <hr />
-        <form onSubmit={(e) => handleDate(e)}>
-          <input type="date" name="date" min={date} />
-          <button type="submit">search for guides</button>
-        </form>
-        <hr />
-        {availableGuides.length === 0 ? (
-          DObooking === "" ? (
-            <h6>Enter Date</h6>
-          ) : (
-            <h6>No guides found</h6>
-          )
-        ) : (
+          <hr />
+          <h2>{place.name}</h2>
+          <main>
+            <Container className={classes.cardGrid} maxWidth="md">
+              <Grid container spacing={1}>
+                {images[place.id].all.map((img) => (
+                  <Grid item key={img} xs={12} sm={6} md={4}>
+                    <Card className={classes.card}>
+                      <CardMedia
+                        className={classes.cardMedia}
+                        image={img}
+                        title="Image title"
+                      />
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </Container>
+          </main>
+          <b>State:</b> {states[city[place.cityId].stateId]}
+          <p>
+            <b>City:</b> {city[place.cityId].name}
+          </p>
+          <a href={place.location}>direction</a>
+          <hr />
+          <h4>Overview: </h4>
+          <p>{place.description}</p>
+          <hr />
           <div>
-            <h4>Guides: </h4>
-            <div className="row">
-              {availableGuides.map((guide) => (
-                <ConnectedGuide
-                  key={guide.id}
-                  guideId={guide.id}
-                  handleCheckbox={handleCheckbox}
-                  isBook={false}
-                  className="col"
-                />
-              ))}
-            </div>
+            <h5>Amount of one Guide: {place.price}</h5>
           </div>
-        )}
-        <form onSubmit={(e) => handleBooking(e, DObooking, place.price, user)}>
-          <span>
-            <b>Total Members: </b>
-          </span>
-          <input
-            type="number"
-            placeholder="0"
-            name="members"
-            min="1"
-            required
-          />
-          {status === mutations.REQUIRED_MORE_GUIDE ? (
-            <p>Need More Guides</p>
-          ) : null}
-          <button type="submit">Book Guide</button>
-        </form>
-      </div>
-    )}
-  </div>
-);
+          <hr />
+          <form onSubmit={(e) => handleDate(e)} className="form-inline">
+            <input
+              type="date"
+              name="date"
+              min={date}
+              className="form-control"
+            />
+            <button type="submit" className="btn btn-primary   ml-2">
+              search for guides
+            </button>
+          </form>
+          <hr />
+          {availableGuides.length === 0 ? (
+            DObooking === "" ? (
+              <h6>Enter Date</h6>
+            ) : (
+              <h6>No guides found</h6>
+            )
+          ) : (
+            <div>
+              <h4>Guides: </h4>
+              <div className="row">
+                {availableGuides.map((guide) => (
+                  <ConnectedGuide
+                    key={guide.id}
+                    guideId={guide.id}
+                    handleCheckbox={handleCheckbox}
+                    isBook={false}
+                    className="col"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+          <form
+            onSubmit={(e) => handleBooking(e, DObooking, place.price, user)}
+            className="form-inline"
+          >
+            <span>
+              <b>Total Members: </b>
+            </span>
+            <input
+              type="number"
+              placeholder="0"
+              name="members"
+              min="1"
+              required
+              className="form-control ml-2"
+            />
+            {status === mutations.REQUIRED_MORE_GUIDE ? (
+              <p>Need More Guides</p>
+            ) : null}
+            <button type="submit" className="btn btn-primary   ml-2">
+              {" "}
+              Book Guide
+            </button>
+          </form>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const mapStateToProps = (state, ownProps) => {
   const user = state.user;
@@ -114,6 +169,7 @@ const mapStateToProps = (state, ownProps) => {
     date,
     availableGuides,
     DObooking: state.DObooking,
+    images: state.images,
   };
 };
 
@@ -150,6 +206,7 @@ Place.propTypes = {
   place: PropTypes.object,
   availableGuides: PropTypes.array,
   city: PropTypes.object.isRequired,
+  images: PropTypes.object.isRequired,
   states: PropTypes.object.isRequired,
   handleCheckbox: PropTypes.func.isRequired,
   handleBooking: PropTypes.func.isRequired,

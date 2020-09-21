@@ -15,6 +15,7 @@ import { ConnectedGuideCompleteBookings } from "./GuideCompleteBookings";
 import { ConnectedSignIn } from "./SignIn";
 
 import * as mutations from "../store/mutations";
+import { ConnectedSignUp } from "./signup";
 
 const RouteGuard = (Component) => ({ match }) => {
   if (store.getState().places.length === 0) {
@@ -43,6 +44,7 @@ export const Main = () => (
           component={ConnectedGuideCompleteBookings}
         />
         <Route exact path="/signin" component={ConnectedSignIn} />
+        <Route exact path="/signup" component={ConnectedSignUp} />
       </div>
     </Provider>
   </Router>

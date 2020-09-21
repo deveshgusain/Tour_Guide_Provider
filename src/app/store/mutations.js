@@ -36,6 +36,9 @@ export const PROCESSING_AUTHENTICATE_USER = "PROCESS_AUTHENTICATE_USER";
 export const REQUEST_INITIAL_STATE = "REQUEST_INITIAL_STATE";
 export const SET_INITIAL_STATE = "SET_INITIAL_STATE";
 export const SET_USER_STATE = "SET_USER_STATE";
+//SingUp
+export const CREATE_USER = "CREATE_USER";
+export const USERNAME_RESERVED = "USERNAME_RESERVED";
 
 export const checkGuides = (guideIds, members, placeId, date, price, user) => ({
   type: REQUEST_GUIDE_CHECKING,
@@ -152,9 +155,9 @@ export const submitRating = (ratingId, score) => ({
   score,
 });
 
-export const requestAuthenticateUser = (username, password) => ({
+export const requestAuthenticateUser = (email, password) => ({
   type: REQUEST_AUTHENTICATE_USER,
-  username,
+  email,
   password,
 });
 
@@ -175,4 +178,12 @@ export const setInitialState = (state = {}) => ({
 export const setUserState = (state = {}) => ({
   type: SET_USER_STATE,
   state,
+});
+
+export const createUser = ({ name, email, password, phoneNo }) => ({
+  type: CREATE_USER,
+  name,
+  email,
+  password,
+  phoneNo,
 });
