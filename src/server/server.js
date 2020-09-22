@@ -12,8 +12,8 @@ import Rating from "./models/ratingModel";
 import "./connect-db.js";
 import "./initialize-db";
 
-const app = express();
 const port = process.env.port || 7777;
+const app = express();
 
 app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
 
