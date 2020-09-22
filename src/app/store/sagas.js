@@ -5,7 +5,7 @@ import axios from "axios";
 
 import * as mutations from "./mutations";
 
-const url = "http://localhost:7777";
+const url = process.env.NODE_ENV == `production` ? "" : "http://localhost:7777";
 
 export function* requestGuideCheckingSaga() {
   while (true) {
@@ -52,6 +52,7 @@ export function* requestGuideCheckingSaga() {
       history.push("/booked");
     } catch (error) {
       if (Object.keys(user).length === 0) {
+        yield put(mutations.resetAvailableGuides());
         history.push("/signin");
       } else {
         console.log("Not Enough Guides");

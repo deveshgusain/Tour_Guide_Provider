@@ -9,7 +9,7 @@ const Navigation = ({ user }) => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
+      <Navbar.Collapse id="responsive-navbar-nav" style={{ fontSize: "20px" }}>
         <div className="mr-auto">
           <NavLink to="/" activeStyle={activeStyle} exact>
             Home
@@ -57,7 +57,7 @@ const Navigation = ({ user }) => {
           ) : (
             <nav>
               <NavLink
-                to={`/profile/${user.username}`} // change it later
+                to="/profile" // change it later
                 activeStyle={activeStyle}
                 exact
                 className="justify-content-end"
@@ -65,7 +65,7 @@ const Navigation = ({ user }) => {
                 {user.name}
               </NavLink>
               {"  |  "}
-              <a href="/">LogOut</a>
+              <a href="/">Signout</a>
             </nav>
           )}
         </div>

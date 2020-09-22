@@ -13,18 +13,24 @@ const Guide = ({
   rating,
 }) => (
   <div className="card p-2 m-2">
-    <h6>Name: {guide.name}</h6>
-    <h6>Languages: </h6>
-    {guide.languageIds.map((language) => (
-      <p key={language}>{languages[language]}</p>
-    ))}
+    <h5>Name: {guide.name}</h5>
+    <h6 className="mt-2">Languages: </h6>
+    <table>
+      {guide.languageIds.map((language) => (
+        <tc key={language}>
+          {languages[language]}
+          {`  `}
+        </tc>
+      ))}
+    </table>
     {isBook === true ? (
-      <div>
-        <h6>Phone Number: </h6>
+      <div className="mt-3">
+        <h5>Phone Number: </h5>
         <p>{guide.phoneNo}</p>
       </div>
     ) : visitId === undefined ? (
       <input
+        className="mt-3"
         type="checkbox"
         value={guide.id}
         defaultChecked={false}
@@ -33,11 +39,11 @@ const Guide = ({
         }}
       />
     ) : rating.isSubmit === true ? (
-      <div>
+      <div className="mt-5">
         <b>Rating: {rating.score}</b>
       </div>
     ) : (
-      <div>
+      <div className="mt-3">
         <ConnectedRating rating={rating} />
       </div>
     )}

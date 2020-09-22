@@ -1,20 +1,16 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import path from "path";
 
 import { authenticationRoute } from "./authenticateRoute";
 import { initialRoute } from "./initialState";
-import "./connect-db.js";
-import User from "./models/userModel";
-import Place from "./models/placeModel";
 import Visit from "./models/visitModel";
 import Booked from "./models/bookedModel";
 import Guide from "./models/guideModel";
 import Rating from "./models/ratingModel";
-import Language from "./models/languageModel";
-import State from "./models/stateModel";
-import City from "./models/cityModel";
-import { func } from "prop-types";
+import "./connect-db.js";
+import "./initialize-db";
 
 const app = express();
 const port = process.env.port || 7777;
@@ -24,7 +20,15 @@ app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
 app.listen(port, console.log("Server is listening at port ", port));
 
 initialRoute(app);
+
 authenticationRoute(app);
+
+if (process.env.NODE_ENV == `production`) {
+  app.use(express.static(path.resolve(__dirname, "../../dist")));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.resolve("index.html"));
+  });
+}
 
 app.post("/guide/available", async (req, res) => {
   const { date, placeId } = req.body;

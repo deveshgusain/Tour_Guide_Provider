@@ -19,7 +19,9 @@ const HoverRating = ({ handleSubmitRating, handleChangeRating, rating }) => (
       precision={1}
       onChange={handleChangeRating}
     />
-    <button type="submit">Rate</button>
+    <button type="submit" className="btn btn-primary ml-2">
+      Rate
+    </button>
   </form>
 );
 

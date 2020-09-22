@@ -6,8 +6,8 @@ import * as mutations from "../store/mutations";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { ConnectedGuide } from "./GuideDetail";
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: "100%", // 16:9
+    paddingTop: "100%",
   },
   cardContent: {
     flexGrow: 1,
@@ -51,10 +51,10 @@ const Place = ({
           <hr />
           <h2>{place.name}</h2>
           <main>
-            <Container className={classes.cardGrid} maxWidth="md">
+            <Container className={classes.cardGrid}>
               <Grid container spacing={1}>
                 {images[place.id].all.map((img) => (
-                  <Grid item key={img} xs={12} sm={6} md={4}>
+                  <Grid item key={img} xs={12} sm={3} md={3}>
                     <Card className={classes.card}>
                       <CardMedia
                         className={classes.cardMedia}
@@ -91,12 +91,13 @@ const Place = ({
               search for guides
             </button>
           </form>
-          <hr />
           {availableGuides.length === 0 ? (
             DObooking === "" ? (
               <h6>Enter Date</h6>
             ) : (
-              <h6>No guides found</h6>
+              <h6 style={{ color: "red" }}>
+                No guides found! please choose diffrent date
+              </h6>
             )
           ) : (
             <div>
@@ -114,6 +115,10 @@ const Place = ({
               </div>
             </div>
           )}
+          <hr />
+          {status === mutations.REQUIRED_MORE_GUIDE ? (
+            <h6 style={{ color: "red" }}>Need More Guides</h6>
+          ) : null}
           <form
             onSubmit={(e) => handleBooking(e, DObooking, place.price, user)}
             className="form-inline"
@@ -129,10 +134,7 @@ const Place = ({
               required
               className="form-control ml-2"
             />
-            {status === mutations.REQUIRED_MORE_GUIDE ? (
-              <p>Need More Guides</p>
-            ) : null}
-            <button type="submit" className="btn btn-primary   ml-2">
+            <button type="submit" className="btn btn-primary ml-2">
               {" "}
               Book Guide
             </button>

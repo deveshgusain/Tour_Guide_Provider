@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --open",
+    "start": "npm run server",
     "initialize": "babel-node src/server/initialize-db",
     "server": "babel-node src/server/server",
-    "start-dev": "concurrently \"npm run server\" \"npm run dev\" ",
-    "checkdb": "babel-node src/server/connect-db"
+    "start-dev": "concurrently \"npm run server\" \"npm run dev\" "
   },
   "keywords": [],
   "author": "",
