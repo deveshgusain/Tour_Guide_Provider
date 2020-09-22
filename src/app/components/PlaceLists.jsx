@@ -10,8 +10,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import CardActionArea from "@material-ui/core/CardActionArea";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { history } from "../store/history";
 
 function Copyright() {
   return (
@@ -70,30 +72,29 @@ const PlaceLists = ({ places, city, states, images }) => {
             {places.map((place) => (
               <Grid item key={place.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image={images[place.id].header}
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {place.name}
-                    </Typography>
-                    <Typography>
-                      <b>State: </b> {states[city[place.cityId].stateId]}
-                    </Typography>
-                    <Typography>
-                      <b>City: </b> {city[place.cityId].name}
-                    </Typography>
-                    <Typography className="pt-2">
-                      {`${place.description.substr(0, 100)} ....`}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small" color="primary">
-                      <Link to={`/place/${place.id}`}>Full View</Link>
-                    </Button>
-                  </CardActions>
+                  <CardActionArea
+                    onClick={() => history.push(`/place/${place.id}`)}
+                  >
+                    <CardMedia
+                      className={classes.cardMedia}
+                      image={images[place.id].header}
+                      title="Image title"
+                    />
+                    <CardContent className={classes.cardContent}>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {place.name}
+                      </Typography>
+                      <Typography>
+                        <b>State: </b> {states[city[place.cityId].stateId]}
+                      </Typography>
+                      <Typography>
+                        <b>City: </b> {city[place.cityId].name}
+                      </Typography>
+                      <Typography className="pt-2">
+                        {`${place.description.substr(0, 100)} ....`}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
                 </Card>
               </Grid>
             ))}
