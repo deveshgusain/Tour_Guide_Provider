@@ -43,7 +43,7 @@ export function* requestGuideCheckingSaga() {
       const { data } = yield axios.post(url + `/booking/add`, {
         NewBooking,
       });
-      console.log("Booking Completed ", data);
+      // console.log("Booking Completed ", data);
       yield put(mutations.addBooking(NewBooking));
 
       yield put(mutations.resetAvailableGuides());
@@ -55,7 +55,7 @@ export function* requestGuideCheckingSaga() {
         yield put(mutations.resetAvailableGuides());
         history.push("/signin");
       } else {
-        console.log("Not Enough Guides");
+        // console.log("Not Enough Guides");
         yield put(
           mutations.processingGuideChecking(mutations.REQUIRED_MORE_GUIDE)
         );
@@ -80,7 +80,7 @@ export function* requestAvailableGuideSaga() {
       availableGuide = data;
       yield put(mutations.addAvailableGuides(availableGuide));
       yield put(mutations.changeDObooking(date));
-      console.info("availble Guides added ", availableGuide);
+      // console.info("availble Guides added ", availableGuide);
     } catch (error) {
       yield put(mutations.addAvailableGuides(availableGuide));
     }
@@ -136,7 +136,7 @@ export function* requestCompleteVisitSaga() {
       yield axios.post(url + `/rating/add`, {
         NewRating,
       });
-      console.info("Rating added.. ", NewRating);
+      // console.info("Rating added.. ", NewRating);
     }
     // delete from bookings
     yield put(mutations.deleteBooking(bookId));
@@ -164,7 +164,7 @@ export function* addRatingSaga() {
     yield axios.post(url + `/rating/add`, {
       NewRating,
     });
-    console.info("Rating added.. ", NewRating);
+    // console.info("Rating added.. ", NewRating);
   }
 }
 
@@ -175,7 +175,7 @@ export function* submitRatingSaga() {
       ratingId,
       score,
     });
-    console.info("submitted rating ", data);
+    // console.info("submitted rating ", data);
   }
 }
 
@@ -191,12 +191,12 @@ export function* authenticateUserSaga() {
       if (!data) {
         throw new Error();
       }
-      console.log("Authenticated ", data);
+      // console.log("Authenticated ", data);
       yield put(mutations.setUserState(data.state));
       yield put(mutations.processAuthenticateUser(mutations.AUTHENTICATED));
       history.push("/");
     } catch (error) {
-      console.log("Not Authenticated ", error);
+      // console.log("Not Authenticated ", error);
       yield put(mutations.processAuthenticateUser(mutations.NOT_AUTHENTICATED));
     }
   }
@@ -206,7 +206,7 @@ export function* addInitialStateSaga() {
   while (true) {
     yield take(mutations.REQUEST_INITIAL_STATE);
     const { data } = yield axios.post(url + `/`, {});
-    console.info("Inital state ", data);
+    // console.info("Inital state ", data);
     yield put(mutations.setInitialState(data));
   }
 }
@@ -227,12 +227,30 @@ export function* createUserSaga() {
         phoneNo,
         role,
       });
-      console.log("Created ", data);
+      // console.log("Created ", data);
       yield put(mutations.setUserState(data.state));
       yield put(mutations.processAuthenticateUser(mutations.AUTHENTICATED));
       history.push("/");
     } catch (e) {
       yield put(mutations.processAuthenticateUser(mutations.USERNAME_RESERVED));
+    }
+  }
+}
+
+export function* editUserSaga() {
+  while (true) {
+    const { name, email, phoneNo } = yield take(mutations.EDIT_USER);
+    try {
+      const { data } = yield axios.post(url + `/user/edit`, {
+        name,
+        email,
+        phoneNo,
+      });
+      // console.log("Edited ", data);
+      history.push("/profile");
+    } catch (e) {
+      // console.log("User Not Found");
+      history.push("/profile");
     }
   }
 }

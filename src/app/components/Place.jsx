@@ -191,7 +191,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleBooking(e, date, price, user) {
       e.preventDefault();
       const members = e.target["members"].value;
-      console.log(selectedGuides, " ", members);
       let guideIds = [];
       for (const guide in selectedGuides) {
         if (selectedGuides[guide] === true) guideIds = [...guideIds, guide];

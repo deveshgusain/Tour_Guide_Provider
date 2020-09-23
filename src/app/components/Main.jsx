@@ -16,6 +16,8 @@ import { ConnectedSignIn } from "./SignIn";
 
 import * as mutations from "../store/mutations";
 import { ConnectedSignUp } from "./signup";
+import { ConnectedProfile } from "./Profile";
+import { ConnectedEditProfile } from "./ProfileEdit";
 
 const InitialRouteGuard = (Component) => ({ match }) => {
   if (store.getState().places.length === 0) {
@@ -83,6 +85,17 @@ export const Main = () => (
         />
         <Route exact path="/signin" component={ConnectedSignIn} />
         <Route exact path="/signup" component={ConnectedSignUp} />
+
+        <Route
+          exact
+          path="/profile"
+          component={UserRouteGuard(ConnectedProfile)}
+        />
+        <Route
+          exact
+          path="/profile/edit"
+          component={UserRouteGuard(ConnectedEditProfile)}
+        />
       </div>
     </Provider>
   </Router>

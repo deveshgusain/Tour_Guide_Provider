@@ -144,6 +144,8 @@ export const store = createStore(
       switch (action.type) {
         case mutations.SET_USER_STATE:
           return action.state.user;
+        case mutations.EDIT_USER:
+          return { ...user, name: action.name, phoneNo: action.phoneNo };
         default:
           return user;
       }
@@ -218,7 +220,7 @@ export const store = createStore(
       }
     },
   }),
-  applyMiddleware(createLogger(), sagaMiddleware)
+  applyMiddleware(sagaMiddleware)
 );
 
 for (let saga in sagas) {

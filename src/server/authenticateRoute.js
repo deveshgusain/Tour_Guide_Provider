@@ -2,6 +2,7 @@ import md5 from "md5";
 import User from "./models/userModel";
 import Visit from "./models/visitModel";
 import Booked from "./models/bookedModel";
+import { func } from "prop-types";
 
 async function assembleUserState(user) {
   const visits = await Visit.find({ user: user.username }).exec();
@@ -58,5 +59,21 @@ export const authenticationRoute = (app) => {
         return res.send({ state });
       }
     });
+  });
+  app.post("/user/edit", async (req, res) => {
+    const { name, email, phoneNo } = req.body;
+    await User.updateOne(
+      { email: email },
+      { name: name, phoneNo: phoneNo },
+      function (err) {
+        if (err) {
+          console.log("User Not Found");
+          res.state(500);
+        }
+      }
+    );
+    const user = await User.findOne({ email: email });
+    console.log("User details updated.. ", user);
+    await res.status(200).send(user);
   });
 };

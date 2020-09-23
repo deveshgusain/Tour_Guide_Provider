@@ -16,12 +16,16 @@ const Guide = ({
     <h5>Name: {guide.name}</h5>
     <h6 className="mt-2">Languages: </h6>
     <table>
-      {guide.languageIds.map((language) => (
-        <tc key={language}>
-          {languages[language]}
-          {`  `}
-        </tc>
-      ))}
+      <tbody>
+        <tr>
+          {guide.languageIds.map((language) => (
+            <td key={language}>
+              {languages[language]}
+              {`  `}
+            </td>
+          ))}
+        </tr>
+      </tbody>
     </table>
     {isBook === true ? (
       <div className="mt-3">

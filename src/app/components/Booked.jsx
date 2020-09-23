@@ -13,7 +13,7 @@ const Booked = ({ booked, places }) => (
       <h4 className="pt-3 pl-6">No content Found</h4>
     ) : null}
     {booked.map((visit) => (
-      <Grid item key={visit.id} xs={12} sm={3} md={5} spacing={1}>
+      <Grid item key={visit.id} xs={12} sm={3} md={5}>
         <div key={visit.id} className="col card p-2 m-2">
           <h6>Place: </h6>
           <Link to={`place/${visit.placeId}`}>

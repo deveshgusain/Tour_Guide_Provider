@@ -39,6 +39,8 @@ export const SET_USER_STATE = "SET_USER_STATE";
 //SingUp
 export const CREATE_USER = "CREATE_USER";
 export const USERNAME_RESERVED = "USERNAME_RESERVED";
+//Edit User details
+export const EDIT_USER = "EDIT_USER";
 
 export const checkGuides = (guideIds, members, placeId, date, price, user) => ({
   type: REQUEST_GUIDE_CHECKING,
@@ -185,5 +187,12 @@ export const createUser = ({ name, email, password, phoneNo }) => ({
   name,
   email,
   password,
+  phoneNo,
+});
+
+export const editUser = ({ name, email, phoneNo }) => ({
+  type: EDIT_USER,
+  name,
+  email,
   phoneNo,
 });
