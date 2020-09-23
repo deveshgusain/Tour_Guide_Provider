@@ -1,7 +1,7 @@
 import React from "react";
 import { store } from "../store";
 import { Provider } from "react-redux";
-import { Router, Route, Redirect } from "react-router-dom";
+import { Router, Route, Redirect, Switch } from "react-router-dom";
 
 import { history } from "../store/history";
 import { ConnectedHome } from "./Home";
@@ -18,6 +18,7 @@ import * as mutations from "../store/mutations";
 import { ConnectedSignUp } from "./signup";
 import { ConnectedProfile } from "./Profile";
 import { ConnectedEditProfile } from "./ProfileEdit";
+import { PageNotFound } from "./PageNotFound";
 
 const InitialRouteGuard = (Component) => ({ match }) => {
   if (store.getState().places.length === 0) {
@@ -50,8 +51,8 @@ const GuideRouteGuard = (Component) => ({ match }) => {
 export const Main = () => (
   <Router history={history}>
     <Provider store={store}>
-      <div>
-        <ConnectedNavigation />
+      <ConnectedNavigation />
+      <Switch>
         <Route exact path="/" component={InitialRouteGuard(ConnectedHome)} />
         <Route
           exact
@@ -96,7 +97,9 @@ export const Main = () => (
           path="/profile/edit"
           component={UserRouteGuard(ConnectedEditProfile)}
         />
-      </div>
+
+        <Route component={PageNotFound} />
+      </Switch>
     </Provider>
   </Router>
 );
