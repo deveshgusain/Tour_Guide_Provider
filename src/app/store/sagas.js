@@ -5,7 +5,7 @@ import axios from "axios";
 
 import * as mutations from "./mutations";
 
-const url = process.env.NODE_ENV == `production` ? "" : "http://localhost:7777";
+const url = process.env.NODE_ENV == `production` ? process.env.BACKEND_URL : "http://localhost:7777";
 
 export function* requestGuideCheckingSaga() {
   while (true) {

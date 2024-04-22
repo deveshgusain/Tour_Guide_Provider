@@ -77,7 +77,7 @@ const Place = ({
           <p>{place.description}</p>
           <hr />
           <div>
-            <h5>Amount of one Guide: {place.price}</h5>
+            <h5>Amount per guide: {place.price}</h5>
           </div>
           <hr />
           <form onSubmit={(e) => handleDate(e)} className="form-inline">
@@ -96,7 +96,7 @@ const Place = ({
               <h6>Enter Date</h6>
             ) : (
               <h6 style={{ color: "red" }}>
-                No guides found! please choose diffrent date
+                No guides found! please choose a different date
               </h6>
             )
           ) : (

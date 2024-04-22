@@ -80,7 +80,7 @@ const EditProfile = ({ user, handleEditUser }) => {
             color="primary"
             className={classes.submit}
           >
-            Cancle
+            Cancel
           </Button>
           <Button
             type="submit"

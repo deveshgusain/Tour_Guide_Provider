@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
-const url = process.env.MONGODB_URI || `mongodb://localhost:27017/TourGuide`;
+require('dotenv').config()
+
+const url = process.env.DATABASE_URL;
 
 export async function connectDB() {
   const db = await mongoose
