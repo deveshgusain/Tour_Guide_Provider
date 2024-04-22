@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 require('dotenv').config()
 
-const url = env.DATABASE_URL;
+const url = process.env.DATABASE_URL;
 
 export async function connectDB() {
   const db = await mongoose
