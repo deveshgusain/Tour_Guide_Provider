@@ -10,9 +10,12 @@ import Booked from "./models/bookedModel";
 import Guide from "./models/guideModel";
 import Rating from "./models/ratingModel";
 import "./connect-db.js";
+import { log } from "console";
 
 const port = process.env.PORT || 7777;
 const app = express();
+
+console.log("ENV vars:=" , process.env);
 
 app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
 
@@ -22,7 +25,7 @@ initialRoute(app);
 
 authenticationRoute(app);
 
-if (env.NODE_ENV == `production`) {
+if (process.env.NODE_ENV == `production`) {
   app.use(express.static(path.resolve(__dirname, "../../dist")));
   app.get("/*", (req, res) => {
     res.sendFile(path.resolve("index.html"));
