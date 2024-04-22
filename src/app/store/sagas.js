@@ -7,6 +7,9 @@ import * as mutations from "./mutations";
 
 const url = process.env.NODE_ENV == `production` ? process.env.BACKEND_URL : "http://localhost:7777";
 
+
+// const url =  "http://localhost:7777";
+
 export function* requestGuideCheckingSaga() {
   while (true) {
     let { guideIds, members, placeId, date, price, user } = yield take(
