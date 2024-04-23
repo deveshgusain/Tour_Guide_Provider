@@ -11,7 +11,7 @@
         "initialize": "babel-node src/server/initialize-db",
         "server": "babel-node src/server/server",
         "start-dev": "concurrently \"npm run start-server\" \"npm run dev\" ",
-        "start": "concurrently \"npm run start-server\" \"node index.html\""
+        "start": "npm run start-server"
     },
     "keywords": [],
     "author": "",
