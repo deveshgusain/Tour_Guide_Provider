@@ -1,13 +1,20 @@
+// {
+//   "presets": [
+//     [
+//       "@babel/preset-env",
+//       {
+//         "targets": {
+//           "node": "current"
+//         }
+//       }
+//     ],
+//     "@babel/preset-react"
+//   ]
+// }
+
 {
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ],
-    "@babel/preset-react"
+    "@babel/preset-env",    // Transforms ES6+ syntax to ES5
+    "@babel/preset-react"   // Transforms JSX syntax
   ]
 }
